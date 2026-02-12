@@ -1,0 +1,71 @@
+<app-dynamic-progress [items]="progressBarItems"></app-dynamic-progress>
+<div class="mt-6 bg-gray-50 p-6 rounded-2xl shadow-sm">
+  <!-- Header -->
+  <div class="flex items-center justify-between border-b border-gray-200 pb-4">
+    <h1 class="text-xl font-semibold text-gray-800">Liste des utilisateurs</h1>
+    <button 
+      routerLink="/admin/users/create"
+      class="px-4 py-2 bg-blue-400 text-white rounded-lg shadow hover:bg-blue-500 transition">
+      <span>+ Creer</span>
+    </button>
+  </div>
+
+  <!-- Table -->
+  <div class="mt-6 overflow-x-auto">
+    <table class="w-full border-collapse text-sm">
+      <thead>
+        <tr class="bg-gray-100 text-left text-gray-600">
+          <th class="px-4 py-2 font-medium border-b border-gray-200">#</th>
+          <th class="px-4 py-2 font-medium border-b border-gray-200">Nom</th>
+          <th class="px-4 py-2 font-medium border-b border-gray-200">Email</th>
+          <th class="px-4 py-2 font-medium border-b border-gray-200">Rôle</th>
+          <th class="px-4 py-2 font-medium text-center border-b border-gray-200">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of listUsers; let i = index" class="hover:bg-gray-100">
+          <td class="px-4 py-2 border-b border-gray-100 text-gray-700">{{ i + 1 }}</td>
+          <td class="px-4 py-2 border-b border-gray-100 text-gray-700">{{ user.prenom }} {{ user.nom }}</td>
+          <td class="px-4 py-2 border-b border-gray-100 text-gray-700">{{ user.email }}</td>
+          <td class="px-4 py-2 border-b border-gray-100 text-gray-700 ">{{ user.role }}</td>
+          <td class="px-4 py-2 border-b border-gray-100 text-center space-x-2">
+            <!-- Icônes Lucide plus petites -->
+            <button class="text-green-600 hover:text-green-800" (click)="editeUser()">
+             <lucide-icon name="edit-2" class="w-4 h-4" title="Modifier"></lucide-icon>
+            </button>
+            <button class="text-red-600 hover:bg-gray-300 hover:rounded-2xl">
+              <lucide-icon name="trash-2" class="w-4 h-4" title="Supprimer"></lucide-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class=" mt-6 hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
+        <div>
+          <p class="text-sm text-gray-700">
+            Affichage de
+            <span class="font-medium">{{ (page-1)*pageSize + 1 }}</span>
+            à
+            <span class="font-medium">{{ (page*pageSize) }}</span>
+            sur
+            <span class="font-medium">{{ totalItems }}</span>
+            résultats
+          </p>
+        </div>
+        <div>
+          
+            
+            <!-- Numéros de page -->
+           
+            
+            
+      
+
+
+
+
+
+    </div>
+    
+  </div>
+</div>

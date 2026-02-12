@@ -1,0 +1,76 @@
+<div class="flex items-center justify-between bg-white rounded-xl px-5 py-3 shadow-md border border-gray-100">
+
+  <!-- LEFT : breadcrumb -->
+  <div class="flex items-center gap-2 text-sm">
+
+    <ng-container *ngFor="let item of items; let last = last">
+
+      <!-- Step -->
+      <div class="flex items-center gap-2">
+
+        <!-- Label container -->
+        <a *ngIf="item.link && !last"
+           [routerLink]="item.link"
+           class="flex items-center gap-2 px-3 py-1.5 rounded-lg 
+                  text-gray-600 bg-gray-50 
+                 
+                  transition-all duration-200">
+
+          <lucide-icon *ngIf="item.icon" 
+                       [name]="item.icon" 
+                       class="w-4 h-4">
+          </lucide-icon>
+
+          {{ item.label }}
+        </a>
+
+        <!-- Active Step -->
+        <span *ngIf="!item.link || last"
+              class="flex items-center gap-2 px-3 py-1.5 rounded-lg
+                     text-gray-700 font-medium">
+
+          <lucide-icon *ngIf="item.icon" 
+                       [name]="item.icon" 
+                       class="w-4 h-4">
+          </lucide-icon>
+
+          {{ item.label }}
+        </span>
+
+        <!-- Chevron in styled box -->
+        <div *ngIf="!last"
+             class="flex items-center justify-center 
+                    w-6 h-6 rounded-md 
+                    bg-gray-100 text-gray-400">
+
+          <lucide-icon name="ChevronRight" class="w-4 h-4"></lucide-icon>
+        </div>
+
+      </div>
+
+    </ng-container>
+
+  </div>
+
+  <!-- RIGHT : navigation arrows -->
+  <div class="flex gap-2">
+
+    <button class="w-8 h-8 flex items-center justify-center 
+                   rounded-lg border border-gray-200 
+                   bg-white hover:bg-gray-50 
+                   shadow-sm transition">
+
+      <lucide-icon name="ChevronLeft" class="w-4 h-4 text-gray-600"></lucide-icon>
+    </button>
+
+    <button class="w-8 h-8 flex items-center justify-center 
+                   rounded-lg border border-gray-200 
+                   bg-white hover:bg-gray-50 
+                   shadow-sm transition">
+
+      <lucide-icon name="ChevronRight" class="w-4 h-4 text-gray-600"></lucide-icon>
+    </button>
+
+  </div>
+
+</div>
