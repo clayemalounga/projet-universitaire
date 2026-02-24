@@ -1,0 +1,13 @@
+<div class="relative search-close">
+    <button (click)="toggleSearch()" class="p-2 cursor-pointer  rounded-full text-yellow-700 mx-1 bg-yellow-100" title="Rechercher une filiere">
+        <lucide-icon name="search" class="w-4 h-4"></lucide-icon>
+    </button>
+
+    <!-- show position absolute if clicked -->
+     <div *ngIf="showSearch"
+        class=" absolute right-0 top-0 transition-all duration-500 ease-in-out">
+        <input [(ngModel)]="searchTerm" type="text" name="" id=""
+            placeholder="Veuillez saisir le libelle ..."
+            class="w-63 pl-10 pr-4 py-1.5 border  border-gray-300 rounded-full  focus:outline-none text-sm">
+     </div>
+</div>

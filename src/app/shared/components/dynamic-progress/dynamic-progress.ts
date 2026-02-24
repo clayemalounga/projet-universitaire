@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { DynamicProgressModel } from '../../dynamic.progress.models/dynamic.progress.model';
 import { LucideAngularModule } from 'lucide-angular';
 import { RouterModule } from '@angular/router';
@@ -15,4 +15,18 @@ export class DynamicProgress {
 
   @Input() items: DynamicProgressModel[]= [];
 
+  @Output() backLink = new EventEmitter<any>();
+  @Output() forwardLink = new EventEmitter<any>();
+
+  toggleBackNavigate(){
+    this.backLink.emit();
+    console.log("Je vais en arriere");
+  }
+
+  toggleForwardNavigate(){
+    this.forwardLink.emit();
+    console.log("Je vais en avant dans la nav");
+  }
+
+  
 }

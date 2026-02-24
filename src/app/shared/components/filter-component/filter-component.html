@@ -1,0 +1,16 @@
+<div class="relative filter-dropdown" tabindex="0"> 
+    <button (click)="toggleFilter()" class="p-2 hover:cursor-pointer rounded-full mx-1 text-green-700 bg-green-100" title="Filtrer"> 
+        <lucide-icon name="filter" class="w-4 h-4"></lucide-icon> 
+    </button> 
+          <!-- Dropdown --> 
+    <div *ngIf="showFilter" class="absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded-md shadow-lg z-50"> 
+        <button (click)="recentFilter()" class="w-full hover:cursor-pointer px-3 py-2 text-left hover:bg-gray-100 flex items-center"> 
+            <lucide-icon name="clock10" class="w-4 h-4 mr-2 text-gray-500"></lucide-icon> 
+              Plus récent 
+        </button> 
+        <button  (click)="oldFilter()" class="w-full hover:cursor-pointer px-3 py-2 text-left hover:bg-gray-100 flex items-center"> 
+            <lucide-icon name="history" class="w-4 h-4 mr-2 text-gray-500"></lucide-icon> 
+              Plus ancien 
+        </button> 
+    </div> 
+</div>

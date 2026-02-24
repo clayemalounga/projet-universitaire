@@ -1,4 +1,4 @@
-<div class="flex items-center justify-between bg-white rounded-xl px-5 py-3 shadow-md border border-gray-100">
+<div class="flex items-center justify-between bg-white rounded-sm px-5 py-2 shadow-md border border-gray-100">
 
   <!-- LEFT : breadcrumb -->
   <div class="flex items-center gap-2 text-sm">
@@ -13,8 +13,7 @@
            [routerLink]="item.link"
            class="flex items-center gap-2 px-3 py-1.5 rounded-lg 
                   text-gray-600 bg-gray-50 
-                 
-                  transition-all duration-200">
+                  transition-all duration-200 cursor-pointer">
 
           <lucide-icon *ngIf="item.icon" 
                        [name]="item.icon" 
@@ -55,7 +54,7 @@
   <!-- RIGHT : navigation arrows -->
   <div class="flex gap-2">
 
-    <button class="w-8 h-8 flex items-center justify-center 
+    <button (click)="toggleBackNavigate()" class="w-8 h-8 flex items-center justify-center 
                    rounded-lg border border-gray-200 
                    bg-white hover:bg-gray-50 
                    shadow-sm transition">
@@ -63,7 +62,7 @@
       <lucide-icon name="ChevronLeft" class="w-4 h-4 text-gray-600"></lucide-icon>
     </button>
 
-    <button class="w-8 h-8 flex items-center justify-center 
+    <button (click)="toggleForwardNavigate()" class="w-8 h-8 flex items-center justify-center 
                    rounded-lg border border-gray-200 
                    bg-white hover:bg-gray-50 
                    shadow-sm transition">
