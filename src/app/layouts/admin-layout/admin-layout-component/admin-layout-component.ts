@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { SidebarComponent } from '../components/sidebar-component/sidebar-component';
 import { HeaderComponent } from '../components/header-component/header-component';
 import { RouterOutlet } from '@angular/router';
@@ -13,7 +13,8 @@ import { FooterComponent } from '../components/footer-component/footer-component
 })
 export class AdminLayoutComponent {
 
-  isSideBrOpen = true;
+  
+  isSideBrOpen = false;
 
   toggleSideBar(){
     this.isSideBrOpen = !this.isSideBrOpen

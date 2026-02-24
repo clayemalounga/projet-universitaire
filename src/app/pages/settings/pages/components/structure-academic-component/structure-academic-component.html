@@ -1,0 +1,119 @@
+<div class="mt-8">
+  <!-- HEADER -->
+  <div class="text-center border shadow-sm border-gray-100 p-2">
+    <h1 class="text-xl font-semibold text-gray-800">
+      Configuration Académique
+    </h1>
+    <p class="text-sm text-gray-500 mt-1">
+      Associez les matières aux filières.
+    </p>
+  </div>
+
+  <div class="grid grid-cols-12 gap-8">
+
+    <!-- ================= FILIÈRES ================= -->
+    <div class="col-span-4">
+
+      <div class="bg-white rounded-sm border border-gray-200 shadow-sm p-5">
+
+        <h2 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-4">
+          Filières
+        </h2>
+
+        <div class="space-y-3">
+
+          <div
+            *ngFor="let f of filieres"
+            (click)="selectFiliere(f.id)"
+            class="cursor-pointer px-4 py-3 rounded-sm border transition-all duration-200 flex items-center justify-between"
+            [ngClass]="
+              selectedFiliereId === f.id
+                ? 'bg-indigo-50 border-green-500'
+                : 'bg-white border-gray-200 hover:border-green-300 hover:bg-gray-50'
+            "
+          >
+            <span class="font-medium text-gray-800 text-sm">
+              {{ f.nom }}
+            </span>
+
+            <span
+              *ngIf="selectedFiliereId === f.id"
+              class="text-[10px] px-2 py-0.5 bg-green-600 text-white rounded-full">
+              Active
+            </span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ================= MATIÈRES ================= -->
+    <div class="col-span-8">
+
+      <div class="bg-white rounded-sm border border-gray-200 shadow-sm p-6">
+
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <h2 class="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+              Matières
+            </h2>
+            <p class="text-xs text-gray-400 mt-1">
+              {{ selectedCount }} matière(s) sélectionnée(s)
+            </p>
+          </div>
+        </div>
+
+        <div *ngIf="!selectedFiliereId" class="text-sm text-gray-400">
+          Sélectionnez une filière pour configurer ses matières.
+        </div>
+
+        <div
+          *ngIf="selectedFiliereId"
+          class="grid grid-cols-3 gap-3"
+        >
+
+          <div
+            *ngFor="let m of matieres"
+            (click)="toggleMatiere(m.id)"
+            class="cursor-pointer border rounded-sm p-4 transition-all duration-200 flex items-center justify-between"
+            [ngClass]="
+              isConfigured(m.id)
+                ? 'bg-yellow-50 border-yellow-500'
+                : 'bg-white border-gray-200 hover:border-yellow-300 hover:bg-gray-50'
+            "
+          >
+
+            <div class="flex items-center gap-3">
+              <input
+                type="checkbox"
+                [checked]="isConfigured(m.id)"
+                class="w-4 h-4 rounded border-gray-300 bg-yellow-50  text-yellow-600 pointer-events-none">
+              <span class="text-sm font-medium text-gray-800">
+                {{ m.nom }}
+              </span>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- SAVE BUTTON -->
+      <div class="mt-6 flex justify-end">
+        <button
+          (click)="saveConfiguration()"
+          [disabled]="!selectedFiliereId"
+          class="inline-flex items-center gap-2 bg-blue-600 text-white text-sm font-medium px-6 py-2 rounded-full shadow-sm hover:bg-indigo-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          <lucide-icon name="save-icon" class="w-4 h-4"></lucide-icon>
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

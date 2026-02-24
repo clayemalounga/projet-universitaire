@@ -1,0 +1,126 @@
+<app-dynamic-progress 
+  [items]="progressBarItems"
+  (backLink)="backNavigate()"
+  (forwardLink)="forwardNavigate()"></app-dynamic-progress>
+<div class="mt-4 bg-white p-6 rounded-sm shadow-sm">
+  <!-- Header -->
+  <div class="flex items-center justify-between border-b border-gray-200 pb-4">
+    <h1 class="text-xl font-semibold text-gray-800">Liste des Matieres</h1>
+    <div class="flex">
+      <app-search-component [type]="searchType"></app-search-component>
+
+      <app-filter-component></app-filter-component>
+
+      <button
+        (click)="openModal()"
+        class="p-2 rounded-full mx-1 cursor-pointer text-blue-700 bg-blue-100"
+        title="Ajouter un etudiant"
+      >
+        <lucide-icon name="plus" class="w-4 h-4"></lucide-icon>
+      </button>
+
+      <div class="fixed inset-0 bg-black/50 z-0 flex items-center justify-center" *ngIf="showModal">
+        <div class="bg-white rounded-sm shadow-lg w-96 p-6 animate-fadeIn">
+          <!-- Header -->
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-lg font-semibold text-slate-800">Ajouter une salle de classe</h2>
+            <button (click)="closeModal()" class="text-gray-700 hover:text-slate-600 transition">
+              <lucide-icon name="x" class="w-5 h-5"></lucide-icon>
+            </button>
+          </div>
+
+          <!-- Form -->
+          <div class="space-y-3">
+            <div>
+              <input
+                type="text"
+                placeholder="Veuillez saisir le  nom de la salle."
+                title="Veuillez saisir le libelle de la nouvelle annee"
+                class="w-full border border-gray-300 rounded-md px-3 py-2"
+              />
+            </div>
+            <div>
+              <select class="w-full border bg-blue-300 text-blue-700 border-gray-300 rounded-b-md px-3 py-2"
+                aria-placeholder="Veuillez selectionner le type"
+                name="" id="">
+                
+                <option value="" >Veuillez selectionner le type</option>
+                <option value="" >Specifique</option>
+                <option value="">Genrale</option>
+              </select>
+
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="flex justify-end gap-2 mt-6">
+            <button
+              (click)="closeModal()"
+              title="Annuler"
+              class="px-4 py-2 mb-2 bg-red-200 rounded-full transition text-red-700"
+            >
+              <lucide-icon name="x" class="w-5 h-5"></lucide-icon>
+            </button>
+            <button
+              (click)="saveCours()"
+              title="Enregister"
+              class="px-4 py-2 mb-2 bg-blue-200 text-blue-700 rounded-full transition-all duration-100"
+            >
+              <lucide-icon name="save-icon"></lucide-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="mt-6 overflow-x-auto">
+    <table class="w-full border-collapse text-sm">
+      <thead>
+        <tr class="bg-gray-100 text-left text-gray-600">
+          <th class="px-4 py-2 font-medium border-b border-gray-200">#</th>
+          <th class="px-4 py-2 font-medium border-b border-gray-200">Intitulé</th>
+          <th class="px-4 py-2 font-medium border-b border-gray-200">Code</th>
+          <th class="px-4 py-2 font-medium border-b border-gray-200">Filière</th>
+          <th class="px-4 py-2 font-medium text-center border-b border-gray-200">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cours of listCours; let i = index" class="hover:bg-gray-100">
+          <td class="px-4 py-2 border-b border-gray-100 text-gray-700">{{ i + 1 }}</td>
+          <td class="px-4 py-2 border-b border-gray-100 text-gray-700">{{ cours.intitule }}</td>
+          <td class="px-4 py-2 border-b border-gray-100 text-gray-700">{{ cours.code }}</td>
+          <td class="px-4 py-2 border-b border-gray-100 text-gray-700">{{ cours.filiere }}</td>
+          <td class="px-4 py-2 border-b border-gray-100 text-center space-x-2">
+            <button
+              class="text-green-600 bg-green-100 mx-1 p-1.5 rounded-full"
+              (click)="editCours(cours)"
+            >
+              <lucide-icon name="edit-2" class="w-4 h-4" title="Modifier"></lucide-icon>
+            </button>
+            <button class="text-yellow-600 bg-yellow-100 mx-1 rounded-full p-1.5">
+              <lucide-icon name="eye" class="w-4 h-4" title="Modifier"></lucide-icon>
+            </button>
+            <button class="text-red-600 bg-red-100 rounded-full p-1.5" (click)="deleteCours(cours)">
+              <lucide-icon name="trash-2" class="w-4 h-4" title="Supprimer"></lucide-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Pagination -->
+    <div class="mt-6 hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
+      <p class="text-sm text-gray-700">
+        Affichage de
+        <span class="font-medium">{{ (page - 1) * pageSize + 1 }}</span>
+        à
+        <span class="font-medium">{{ page * pageSize }}</span>
+        sur
+        <span class="font-medium">{{ totalItems }}</span>
+        résultats
+      </p>
+    </div>
+  </div>
+</div>

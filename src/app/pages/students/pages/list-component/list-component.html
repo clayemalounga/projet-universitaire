@@ -1,0 +1,73 @@
+<app-dynamic-progress 
+  [items]="progressBarItems"
+  (backLink)="backNavigate()"
+  (forwardLink)="forwardNavigate()">
+</app-dynamic-progress>
+<div class="mt-4 bg-white p-6 rounded-sm shadow-sm">
+  <!-- Header -->
+  <div class="flex items-center justify-between border-b border-gray-200 pb-4">
+    <h1 class="text-xl font-semibold text-gray-800">Liste des etudiants</h1>
+    <div class="flex">
+        <button class="p-2 rounded-full text-yellow-700 mx-1 bg-yellow-100" title="Rechercher un etudiant">
+            <lucide-icon name="search" class="w-4 h-4"></lucide-icon>
+        </button>
+        <app-filter-component></app-filter-component>
+        <button class="p-2 rounded-full mx-1 text-blue-700 bg-blue-100" title="Ajouter un etudiant">
+            <lucide-icon name="plus" class="w-4 h-4"></lucide-icon>
+        </button>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="mt-6 overflow-x-auto">
+    <table class="w-full border-collapse text-sm">
+      <thead>
+        <tr class="bg-gray-100 text-left text-gray-600">
+          <th class="px-4 py-2 font-medium border-b border-gray-200">Info</th>
+          <th class="px-4 py-2 font-medium border-b border-gray-200">Matricule</th>
+          <th class="px-4 py-2 font-medium border-b border-gray-200">Classe</th>
+          <th class="px-4 py-2 font-medium text-center border-b border-gray-200">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let student of listStudents; let i = index" class="hover:bg-gray-100">
+          <td class="px-4 py-2 border-b border-gray-100 text-gray-700">
+            <div class="flex">
+                <img width="50" src="assets/images/image.png" class="rounded-full bg-gray-50" alt="imageutilisateurs">
+                <div class="mx-2">
+                    <p class="font-bold mb-1">{{student.nom}}</p>
+                    <span>{{student.prenom}}</span>
+                </div>
+            </div>
+          </td>
+          <td class="px-4 py-2 border-b border-gray-100 text-gray-700">{{ student.matricule }}</td>
+          <td class="px-4 py-2 border-b border-gray-100 text-gray-700">{{ student.classe }}</td>
+          <td class="px-4 py-2 border-b border-gray-100 text-center space-x-2">
+            <button class="text-green-600  rounded-full mx-1 bg-green-100 p-1.5" (click)="editStudent(student)">
+              <lucide-icon name="edit-2" class="w-4 h-4" title="Modifier"></lucide-icon>
+            </button>
+            <button class="text-yellow-600 bg-yellow-100 mx-1 rounded-full p-1.5">
+              <lucide-icon name="eye" class="w-4 h-4" title="Modifier"></lucide-icon>
+            </button>
+            <button class="text-red-600 bg-red-100 rounded-full p-1.5" (click)="deleteStudent(student)">
+              <lucide-icon name="trash-2" class="w-4 h-4" title="Supprimer"></lucide-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Pagination -->
+    <div class="mt-6 hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
+      <p class="text-sm text-gray-700">
+        Affichage de
+        <span class="font-medium">{{ (page-1)*pageSize + 1 }}</span>
+        à
+        <span class="font-medium">{{ (page*pageSize) }}</span>
+        sur
+        <span class="font-medium">{{ totalItems }}</span>
+        résultats
+      </p>
+    </div>
+  </div>
+</div>

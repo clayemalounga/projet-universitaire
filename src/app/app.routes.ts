@@ -6,6 +6,12 @@ import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout-component
 import { LoginComponent } from './layouts/auth-layout/components/login-component/login-component';
 import { ForgotPasswordComponent } from './layouts/auth-layout/components/forgot-password-component/forgot-password-component';
 import { DashboardComponent } from './layouts/admin-layout/components/dashboard-component/dashboard-component';
+import { studentsRoute } from './pages/students/students.route';
+import { filiersRoutes } from './pages/filieres/filieres.routes';
+import { academicYearsRoutes } from './pages/academic-years/academic-years.routes';
+import { coursRoutes } from './pages/cours/cours.routes';
+import { classesRoutes } from './pages/classes/classes.routes';
+import { configRoutes } from './pages/settings/settings.routes';
 
 export const routes: Routes = [
 
@@ -14,6 +20,12 @@ export const routes: Routes = [
         component: AdminLayoutComponent,
         children: [
             ...userRoutes,
+            ...studentsRoute,
+            ...filiersRoutes,
+            ...academicYearsRoutes,
+            ...coursRoutes,
+            ...classesRoutes,
+            ...configRoutes,
             { path: 'accueil', component: AccueilComponent,},
             { path: 'dashboard', component: DashboardComponent}
         ]

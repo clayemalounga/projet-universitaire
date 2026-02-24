@@ -16,5 +16,6 @@ export class HeaderComponent {
 
   onToggle(){
     this.toggleSlide.emit();
+    console.log("event emit au bosse");
   }
 }

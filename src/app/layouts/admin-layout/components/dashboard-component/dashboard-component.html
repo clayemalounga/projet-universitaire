@@ -7,28 +7,28 @@
   </div>
 
   <!-- Cards principales -->
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
     
     <!-- Étudiants -->
-    <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-lg transition cursor-pointer flex flex-col items-center text-center">
+    <div routerLink="/admin/students/list" class="bg-white rounded-sm p-6 shadow-sm hover:shadow-lg transition cursor-pointer flex flex-col items-center text-center">
       <div class="bg-blue-50 p-3 rounded-full mb-4">
         <lucide-icon name="graduation-cap" class="w-10 h-10 text-blue-600"></lucide-icon>
       </div>
-      <h3 class="text-md font-semibold text-slate-800">Étudiants</h3>
+      <h3 class="text-md font-semibold text-slate-800"><span class="font-semibold text-3xl text-blue-600 mx-3">300</span>Étudiants</h3>
       <p class="text-xs text-slate-500 mt-1">Gestion des fiches étudiants</p>
     </div>
 
     <!-- Inscriptions -->
-    <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-lg transition cursor-pointer flex flex-col items-center text-center">
+    <div class="bg-white rounded-sm p-6 shadow-sm hover:shadow-lg transition cursor-pointer flex flex-col items-center text-center">
       <div class="bg-green-50 p-3 rounded-full mb-4">
         <lucide-icon name="edit" class="w-10 h-10 text-green-600"></lucide-icon>
       </div>
-      <h3 class="text-md font-semibold text-slate-800">Inscriptions</h3>
+      <h3 class="text-md font-semibold text-slate-800"><span class="font-semibold text-3xl text-green-600  mx-3">450</span>Inscriptions</h3>
       <p class="text-xs text-slate-500 mt-1">Suivi des inscriptions académiques</p>
     </div>
 
     <!-- Comptabilité -->
-    <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-lg transition cursor-pointer flex flex-col items-center text-center">
+    <div class="bg-white rounded-sm p-6 shadow-sm hover:shadow-lg transition cursor-pointer flex flex-col items-center text-center">
       <div class="bg-purple-50 p-3 rounded-full mb-4">
         <lucide-icon name="wallet" class="w-10 h-10 text-purple-600"></lucide-icon>
       </div>
@@ -38,16 +38,31 @@
   </div>
 
   <!-- Placeholder statistiques -->
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
-    <div class="bg-white rounded-xl p-6 shadow-sm flex items-center justify-center text-slate-400">
-      <span>📊 Statistiques à venir</span>
+   
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 mt-6">
+    <div class="bg-white rounded-sm p-6 shadow-sm  text-center">
+      <p class="mb-1">Repartitions des etudiants en fonction du genre</p>
+
+      <apx-chart 
+      [series]="genderCharts.series" 
+      [chart]="genderCharts.chart" 
+      [labels]="genderCharts.labels" 
+      [colors]="genderCharts.colors" 
+      [legend]="genderCharts.legend">
+      </apx-chart>
+      
     </div>
-    <div class="bg-white rounded-xl p-6 shadow-sm flex items-center justify-center text-slate-400">
-      <span>📈 Graphiques à venir</span>
+
+    <div class="bg-white rounded-sm p-6 shadow-sm flex items-center justify-center text-slate-400">
+      <apx-chart 
+      [series]="chartOptions.series || []" 
+      [chart]="chartOptions.chart!" 
+      [title]="chartOptions.title!" 
+      [xaxis]="chartOptions.xaxis!">
+      </apx-chart>
     </div>
-    <div class="bg-white rounded-xl p-6 shadow-sm flex items-center justify-center text-slate-400">
-      <span>📉 Indicateurs à venir</span>
-    </div>
+    
+    
   </div>
 
 </div>

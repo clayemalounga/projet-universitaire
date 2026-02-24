@@ -1,72 +1,51 @@
+<!-- Header -->
+<div class="flex items-center justify-between mb-4">
+  <!-- Titre -->
+  <h2 class="text-lg font-semibold text-slate-700">Modules disponibles</h2>
+
+  <!-- Icône de recherche -->
+  <div class="relative search-close">
+    <button (click)="toggleSearch()" 
+            class="p-2 rounded-full hover:bg-gray-100 transition">
+      <lucide-icon name="search" class="w-5 h-5 text-gray-600"></lucide-icon>
+    </button>
+
+    <!-- Champ de recherche avec transition -->
+    <div *ngIf="showSearch" 
+         class="absolute right-0 top-0 transition-all duration-500 ease-in-out">
+      <input type="text" [(ngModel)]="searchTerm"
+             placeholder="Rechercher un module..."
+             class="w-64 pl-10 pr-4 py-2 border border-gray-300 rounded-full shadow-sm  focus:outline-none text-sm">
+    </div>
+  </div>
+</div>
+
+<!-- Grille des modules -->
 <div class="grid grid-cols-1 mt-3 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-  <!-- Étudiants -->
-  <div routerLink="/admin/etudiants/list"
-       class="bg-white rounded-xl p-6 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer flex flex-col items-center text-center group">
-    <div class="bg-blue-50 p-3 rounded-full mb-4">
-      <lucide-icon name="graduation-cap" class="w-10 h-10 text-blue-600"></lucide-icon>
+  <div *ngFor="let module of filteredModules"
+       [routerLink]="module.link"
+       class="bg-white rounded-sm p-6 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer flex flex-col items-center text-center group">
+    
+    <div [ngClass]="module.color + ' p-3 rounded-full mb-4'">
+      <lucide-icon [name]="module.icon" class="w-10 h-10"></lucide-icon>
     </div>
-    <h3 class="text-md font-semibold text-slate-800">Étudiants</h3>
-    <p class="text-xs text-slate-500 mt-1">Gestion des fiches étudiants</p>
+    
+    <h3 class="text-md font-semibold text-slate-800">{{ module.title }}</h3>
+    <p class="text-xs text-slate-500 mt-1">{{ module.description }}</p>
   </div>
-
-  <!-- Classes -->
-  <div routerLink="/admin/classes/list"
-       class="bg-white rounded-xl p-6 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer flex flex-col items-center text-center group">
-    <div class="bg-green-50 p-3 rounded-full mb-4">
-      <lucide-icon name="list" class="w-10 h-10 text-green-600"></lucide-icon>
-    </div>
-    <h3 class="text-md font-semibold text-slate-800">Classes</h3>
-    <p class="text-xs text-slate-500 mt-1">Organisation des classes</p>
-  </div>
-
-  <!-- Filières -->
-  <div routerLink="/admin/filieres/list"
-       class="bg-white rounded-xl p-6 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer flex flex-col items-center text-center group">
-    <div class="bg-yellow-50 p-3 rounded-full mb-4">
-      <lucide-icon name="layers" class="w-10 h-10 text-yellow-600"></lucide-icon>
-    </div>
-    <h3 class="text-md font-semibold text-slate-800">Filières</h3>
-    <p class="text-xs text-slate-500 mt-1">Gestion des filières académiques</p>
-  </div>
-
-  <!-- Cours -->
-  <div routerLink="/admin/cours/list"
-       class="bg-white rounded-xl p-6 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer flex flex-col items-center text-center group">
-    <div class="bg-indigo-50 p-3 rounded-full mb-4">
-      <lucide-icon name="book-open" class="w-10 h-10 text-indigo-600"></lucide-icon>
-    </div>
-    <h3 class="text-md font-semibold text-slate-800">Cours</h3>
-    <p class="text-xs text-slate-500 mt-1">Gestion des matières</p>
-  </div>
-
-  <!-- Inscriptions -->
-  <div routerLink="/admin/inscriptions/list"
-       class="bg-white rounded-xl p-6 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer flex flex-col items-center text-center group">
-    <div class="bg-pink-50 p-3 rounded-full mb-4">
-      <lucide-icon name="edit" class="w-10 h-10 text-pink-600"></lucide-icon>
-    </div>
-    <h3 class="text-md font-semibold text-slate-800">Inscriptions</h3>
-    <p class="text-xs text-slate-500 mt-1">Suivi des inscriptions académiques</p>
-  </div>
-
-  <!-- Comptabilité -->
-  <div routerLink="/admin/comptabilite"
-       class="bg-white rounded-xl p-6 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer flex flex-col items-center text-center group">
-    <div class="bg-purple-50 p-3 rounded-full mb-4">
-      <lucide-icon name="wallet" class="w-10 h-10 text-purple-600"></lucide-icon>
-    </div>
-    <h3 class="text-md font-semibold text-slate-800">Comptabilité</h3>
-    <p class="text-xs text-slate-500 mt-1">Gestion des paiements et finances</p>
-  </div>
-
-  <!-- cartes des etudiants -->
-   <div routerLink="/admin/cartes-etudiants"
-     class="bg-white rounded-xl p-6 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer flex flex-col items-center text-center group">
-  <div class="bg-teal-50 p-3 rounded-full mb-4">
-    <lucide-icon name="id-card" class="w-10 h-10 text-teal-600"></lucide-icon>
-  </div>
-  <h3 class="text-md font-semibold text-slate-800">Cartes étudiants</h3>
-  <p class="text-xs text-slate-500 mt-1">Gestion et impression des cartes d’étudiants</p>
 </div>
 
-</div>
+<!-- Message si aucun module trouvé -->
+<ng-container *ngIf="modulesResultatSearch.length === 0 && showSearch">
+  <div class="flex flex-col items-center justify-center mt-6 p-6 text-center animate-fadeIn">
+    <div class="bg-gray-100 p-3 rounded-full mb-3">
+      <lucide-icon name="search-x-icon" class="w-15 h-15 text-red-400"></lucide-icon>
+    </div>
+    <div class="text-gray-600">
+       <p class="text-xl mb-2">Nous n'avons trouvé aucun module avec le resultat <span class="font-bold"> "{{ searchTerm }}".</span></p> 
+       <p>Verifiez que vous n'avez fait aucune faute de frappe.</p>
+    </div>
+  </div>
+</ng-container>
+
+

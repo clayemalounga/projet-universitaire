@@ -1,27 +1,90 @@
-<aside class="h-screen w-64 bg-gray-900 text-gray-100 flex flex-col">
+<!-- Show sidebar en fonction des cliques du menu -->
+
+<aside
+  class="h-screen bg-gray-900 text-gray-100 flex flex-col transition-all duration-300"
+  [class.w-64]="open"
+  [class.w-20]="!open"
+>
   <!-- Logo -->
-  <div class="h-15 flex items-center justify-center border-b border-gray-800">
-    <img src="assets/logo/logo-ecole.png" routerLink="/" alt="SEMOS Logo" class="h-30 hover:cursor-pointer">
+  <div
+    class="h-16 flex items-center border-b border-gray-800"
+    [class.justify-between]="open"
+    [class.justify-center]="!open"
+  >
+    <img
+      *ngIf="!open"
+      src="assets/logo/logopart.png"
+      routerLink="/admin/dashboard"
+      alt="SEMOS Logo"
+      class="hover:cursor-pointer"
+      [class.h-8]="!open"
+    />
+
+    <img
+      *ngIf="open"
+      src="assets/logo/logo-ecole.png"
+      routerLink="/admin/dashboard"
+      alt="SEMOS Logo"
+      class="hover:cursor-pointer mx-3"
+      [class.h-30]="open"
+    />
+
+    
+    <div class="relative search-close">
+      <button
+      (click)="toggleIcon()"
+      *ngIf="open"
+      class="mr-5 cursor-pointer"
+      title="Cliquez si vous vouler faire une recherche le menu"
+    >
+      <lucide-icon name="search" class="w-5 h-5 text-gray-300"></lucide-icon>
+    </button>
+      <!-- Champ de recherche avec transition -->
+      <div
+        *ngIf="showSearch"
+        class="absolute right-0 top-0 transition-all duration-500 ease-in-out"
+      >
+        <input
+          type="text"
+          [(ngModel)]="searchTerm"
+          placeholder="Rechercher un module..."
+          class="w-64 pl-10 pr-4 py-2 border border-gray-300 rounded-full shadow-sm focus:outline-none text-sm"
+        />
+      </div>
+    </div>
   </div>
 
   <!-- Navigation -->
-  <nav class="flex-1 overflow-y-auto p-4">
+  <nav class="flex-1 overflow-y-auto custom-scrollbar p-4">
     <ul class="space-y-2">
-      <li *ngFor="let item of menuItems" class="rounded">
-        <div (click)="item.open = !item.open" [routerLink]="item.route"
-             class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-800 transition cursor-pointer">
+      <li *ngFor="let item of menuItems" class="rounded-sm">
+        <div
+          (click)="item.children ? (item.open = !item.open) : null"
+          [routerLink]="item.route"
+          class="flex items-center gap-3 px-3 py-2 rounded-sm hover:bg-gray-800 transition cursor-pointer"
+        >
+          <!-- Icône -->
           <lucide-icon [name]="item.icon" class="w-5 h-5 text-gray-300"></lucide-icon>
-          <span class="text-sm font-medium">{{ item.label }}</span>
-          <lucide-icon [name]="item.open ? 'chevron-down' : 'chevron-right'"
-                       class="w-4 h-4 ml-auto text-gray-400"></lucide-icon>
+
+          <!-- Label affiché seulement si sidebar ouvert -->
+          <span *ngIf="open" class="text-sm font-medium">{{ item.label }}</span>
+
+          <!-- Chevron affiché seulement si children ET sidebar ouvert -->
+          <lucide-icon
+            *ngIf="item.children && open"
+            [name]="item.open ? 'chevron-down' : 'chevron-right'"
+            class="w-4 h-4 ml-auto text-gray-400"
+          ></lucide-icon>
         </div>
 
-        <!-- Children -->
-        <ul *ngIf="item.open && item.children" class="ml-6 mt-1 space-y-1">
+        <!-- Children affichés seulement si sidebar ouvert -->
+        <ul *ngIf="item.open && item.children && open" class="ml-6 mt-1 space-y-1">
           <li *ngFor="let child of item.children">
-            <a [routerLink]="child.route"
-               routerLinkActive="bg-blue-600 text-white"
-               class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-800 transition text-gray-300 text-sm">
+            <a
+              [routerLink]="child.route"
+              routerLinkActive="bg-blue-600 text-white"
+              class="flex items-center gap-2 px-3 py-2 rounded-sm hover:bg-gray-800 transition text-gray-300 text-sm"
+            >
               <lucide-icon [name]="child.icon" class="w-4 h-4"></lucide-icon>
               <span>{{ child.label }}</span>
             </a>
@@ -32,7 +95,7 @@
   </nav>
 
   <!-- Footer -->
-  <div class="px-6 py-4 border-t border-gray-800 text-xs text-gray-400">
+  <div *ngIf="open" class="px-6 py-4 border-t border-gray-800 text-xs text-gray-400">
     © 2026 SEMOS
   </div>
 </aside>
